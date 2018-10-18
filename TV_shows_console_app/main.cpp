@@ -1,10 +1,12 @@
 #include "User.h"
 #include "VOD.h"
+#include "TV_show.h"
 #include <iostream>
 #include <string>
 
 int main() {
 	User user;
+	TV_show show;
 	std::string n, genre;
 	int t;
 	std::cout << "What's your name?: ";

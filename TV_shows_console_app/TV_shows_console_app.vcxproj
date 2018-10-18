@@ -116,10 +116,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Pool.cpp" />
+    <ClCompile Include="TV_show.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="VOD.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Pool.h" />
+    <ClInclude Include="TV_show.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="VOD.h" />
   </ItemGroup>
