@@ -1,7 +1,6 @@
 #pragma once
-#import "VOD.h"
-#import <string>
-
+#include <string>
+#include "VOD.h"
 
 class TV_show : public VOD {
 private:

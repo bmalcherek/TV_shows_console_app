@@ -7,6 +7,12 @@
 int main() {
 	User user;
 	TV_show show;
+	show.set_current_episode(1);
+	show.set_length(20);
+	show.set_number_of_episodes(20);
+	show.set_rating(7.8);
+	show.set_title("Friends");
+	show.set_was_watched(false);
 	std::string n, genre;
 	int t;
 	std::cout << "What's your name?: ";

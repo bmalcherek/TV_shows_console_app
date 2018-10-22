@@ -122,8 +122,8 @@
     <ClCompile Include="VOD.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Pool.h" />
     <ClInclude Include="TV_show.h" />
+    <ClInclude Include="Pool.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="VOD.h" />
   </ItemGroup>
