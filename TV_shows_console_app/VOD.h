@@ -6,7 +6,7 @@ private:
 	float rating;
 	bool was_watched;
 	std::string title;
-	int length;
+	int length, index;
 public:
 	void set_rating(float r) { rating = r; }
 	float get_rating() { return rating; }
@@ -16,4 +16,6 @@ public:
 	std::string get_title() { return title; }
 	void set_length(int l) { length = l; }
 	int get_length() { return length; }
+	void set_index(int i) { index = i; }
+	int get_index() { return index; }
 };

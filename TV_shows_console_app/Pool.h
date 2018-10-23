@@ -9,4 +9,7 @@ private:
 	int current_index;
 public:
 	void add_show();
+	void edit_show();
+	void initialize() { current_index = 0; }
+	void edit_show_menu(TV_show&);
 };

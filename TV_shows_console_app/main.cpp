@@ -7,7 +7,12 @@
 
 int main() {
 	Pool pool;
+	pool.initialize();
 	pool.add_show();
+	pool.edit_show();
+	//system("CLS");
+	//system("CLS");
+
 	/*User user;
 	TV_show show;
 	show.set_current_episode(1);
