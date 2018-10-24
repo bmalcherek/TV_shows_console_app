@@ -2,14 +2,14 @@
 #include "TV_show.h"
 #include <string>
 #include <iostream>
+#include "Menu.h"
 
 class Pool {
-private:
-	TV_show shows[100];
+private:	
 	int current_index;
 public:
-	void add_show();
-	void edit_show();
+	TV_show shows[100];
 	void initialize() { current_index = 0; }
-	void edit_show_menu(TV_show&);
+	int get_current_index() { return current_index; }
+	friend class Menu;
 };
