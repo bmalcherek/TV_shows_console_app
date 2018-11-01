@@ -2,7 +2,7 @@
 #include "Watchable_element.h"
 
 
-class Movie : Watchable_Element {
+class Movie : public Watchable_Element {
 
 private:
 	float rating;

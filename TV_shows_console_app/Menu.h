@@ -10,22 +10,13 @@
 class Menu {
 
 private:
-	Pool <TV_show>& shows_pool;
-	Pool <Movie>& movies_pool;
-	Pool <Live_Event>& live_events_pool;
-	int x;
 
 public:
-	Menu(Pool <TV_show>& t, Pool <Movie>& m, Pool <Live_Event>& l) {
-		shows_pool = t;
-		movies_pool = m;
-		live_events_pool = l;
-	}
-	
-	/*void initialize(Pool <TV_show>& t, Pool <Movie>& m, Pool <Live_Event>& l) {
-		shows_pool = t;
-		movies_pool = m;
-		live_events_pool = l;
-	}*/
-	void main_menu();
+	void main_menu(Pool <TV_show>&, Pool <Movie>&, Pool <Live_Event>&);
+	void add_menu(Pool <TV_show>&, Pool <Movie>&, Pool <Live_Event>&);
+	void edit_menu(Pool <TV_show>&, Pool <Movie>&, Pool <Live_Event>&);
+	void edit_show(Pool <TV_show>&);
+	TV_show add_show();
+	Movie add_movie();
+	Live_Event add_live_event();
 };

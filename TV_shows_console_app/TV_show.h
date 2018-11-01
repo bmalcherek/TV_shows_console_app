@@ -1,11 +1,12 @@
 #pragma once
 #include <string>
 #include "Watchable_Element.h"
+#include "Pool.h"
 
 using namespace std;
 
 
-class TV_show : Watchable_Element {
+class TV_show : public Watchable_Element {
 
 private:
 	int number_of_episodes, current_episode;
