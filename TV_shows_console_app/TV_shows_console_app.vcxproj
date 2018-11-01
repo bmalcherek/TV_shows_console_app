@@ -123,11 +123,14 @@
     <ClCompile Include="VOD.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Live_Event.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Movie.h" />
     <ClInclude Include="TV_show.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="VOD.h" />
+    <ClInclude Include="Watchable_Element.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

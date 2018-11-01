@@ -1,14 +1,21 @@
 #pragma once
 #include <string>
-#include "VOD.h"
+#include "Watchable_Element.h"
 
-class TV_show : public VOD {
+using namespace std;
+
+
+class TV_show : Watchable_Element {
+
 private:
 	int number_of_episodes, current_episode;
+	float rating;
+
 public:
-	//TV_show(float, std::string, int, int, int);
-	void set_number_of_episodes(int ep) { number_of_episodes = ep; }
-	int get_numer_of_episodes() { return number_of_episodes; }
+	void set_number_of_episodes(int n) { number_of_episodes = n; }
+	int get_number_of_episodes() { return number_of_episodes; }
 	void set_current_episode(int c) { current_episode = c; }
 	int get_current_episode() { return current_episode; }
+	void set_rating(float r) { rating = r; }
+	float get_rating() { return rating; }
 };
