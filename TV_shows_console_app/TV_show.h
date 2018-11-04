@@ -19,4 +19,5 @@ public:
 	int get_current_episode() { return current_episode; }
 	void set_rating(float r) { rating = r; }
 	float get_rating() { return rating; }
+	bool operator< (const TV_show& other) const { return rating < other.rating; } //https://stackoverflow.com/questions/9706517/sort-a-vector-of-objects-by-an-objects-attribute
 };
