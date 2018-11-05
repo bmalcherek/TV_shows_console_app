@@ -6,7 +6,7 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 	int choose, choose2;
 	system("CLS");
 	cout << "Hi, what would you like to do?\n1. Add show/movie/live show\n" <<
-		"2. Edit show/movie/live show\n3. Show by rating\n9. Exit\nEnter number: ";
+		"2. Edit show/movie/live show\n3. Delete show/movie/live show\n4. Show by rating\n9. Exit\nEnter number: ";
 	cin >> choose;
 	system("CLS");
 	switch (choose) {
@@ -20,7 +20,13 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 		edit_menu(shows_pool, movies_pool, events_pool);
 		break;
 	}		
+
 	case 3: {
+		delete_menu(shows_pool, movies_pool, events_pool);
+		break;
+	}
+
+	case 4: {
 		sort_menu(shows_pool, movies_pool);
 		break;
 	}
@@ -29,6 +35,9 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 	}
 	main_menu(shows_pool, movies_pool, events_pool);
 }
+
+
+//ADDING SECTION
 
 
 void Menu::add_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool <Live_Event>& events_pool) {
@@ -48,24 +57,6 @@ void Menu::add_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool 
 		movies_pool += movie;
 		break;
 	}
-	}
-}
-
-
-void Menu::edit_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool <Live_Event>& events_pool) {
-	int choose2;
-	system("CLS");
-	cout << "1. Edit show\n2. Edit movie\n3. Edit live show\n9. Go back\nEnter number: ";
-	cin >> choose2;
-
-	switch (choose2) {
-	case 1:
-		edit_show(shows_pool);
-		break;
-
-	case 2:
-		edit_movie(movies_pool);
-		break;
 	}
 }
 
@@ -116,6 +107,27 @@ Movie Menu::add_movie() {
 	movie.set_rating(rating);
 
 	return movie;
+}
+
+
+//EDITING SECTION
+
+
+void Menu::edit_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool <Live_Event>& events_pool) {
+	int choose2;
+	system("CLS");
+	cout << "1. Edit show\n2. Edit movie\n3. Edit live show\n9. Go back\nEnter number: ";
+	cin >> choose2;
+
+	switch (choose2) {
+	case 1:
+		edit_show(shows_pool);
+		break;
+
+	case 2:
+		edit_movie(movies_pool);
+		break;
+	}
 }
 
 
@@ -233,6 +245,9 @@ void Menu::edit_movie(Pool <Movie>& movies_pool) {
 }
 
 
+//SORTING SECTION
+
+
 void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 	int choose;
 	system("CLS");
@@ -256,4 +271,71 @@ void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 	}
 	}
 	system("pause");
+}
+
+
+//DELETE SECION
+
+
+void Menu::delete_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool <Live_Event>& events_pool) {
+	int choose;
+	system("CLS");
+	cout << "1. Delete show\n2. Delete movie\n3. Delete live show\n9. Go back\nEnter number: ";
+	cin >> choose;
+
+	switch (choose) {
+	case 1:
+		delete_show(shows_pool);
+		break;
+
+	case 2:
+		delete_movie(movies_pool);
+		break;
+
+	case 3:
+		delete_live_event(events_pool);
+		break;
+	}
+}
+
+
+void Menu::delete_show(Pool <TV_show>& shows_pool) {
+	int choose;
+	system("CLS");
+	cout << "Which show do you want to delete?\n";
+	for (int i = 0; i < shows_pool.pool.size(); i++) {
+		cout << i << ". " << shows_pool.pool[i].get_title() << endl;
+	}
+	cout << "Enter numer: ";
+	cin >> choose;
+
+	shows_pool.pool.erase(shows_pool.pool.begin() + choose);
+}
+
+
+void Menu::delete_movie(Pool <Movie>& movies_pool) {
+	int choose;
+	system("CLS");
+	cout << "Which movie do you want to delete?\n";
+	for (int i = 0; i < movies_pool.pool.size(); i++) {
+		cout << i << ". " << movies_pool.pool[i].get_title() << endl;
+	}
+	cout << "Enter numer: ";
+	cin >> choose;
+
+	movies_pool.pool.erase(movies_pool.pool.begin() + choose);
+}
+
+
+void Menu::delete_live_event(Pool <Live_Event>& events_pool) {
+	int choose;
+	system("CLS");
+	cout << "Which live event do you want to delete?\n";
+	for (int i = 0; i < events_pool.pool.size(); i++) {
+		cout << i << ". " << events_pool.pool[i].get_title() << endl;
+	}
+	cout << "Enter numer: ";
+	cin >> choose;
+
+	events_pool.pool.erase(events_pool.pool.begin() + choose);
 }

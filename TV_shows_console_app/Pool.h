@@ -13,8 +13,12 @@ private:
 	
 public:
 	vector <T> pool;
-	Pool & operator+= (T t) {
+	Pool& operator+= (T t) {
 		pool.push_back(t);
+		return *this;
+	}
+	Pool& operator-= (int index) {
+		pool.erase(pool.begin() + index);
 		return *this;
 	}
 };
