@@ -3,7 +3,7 @@ using namespace std;
 
 
 void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool <Live_Event>& events_pool) {
-	int choose, choose2;
+	int choose;
 	system("CLS");
 	cout << "Hi, what would you like to do?\n1. Add show/movie/live show\n" <<
 		"2. Edit show/movie/live show\n3. Delete show/movie/live show\n4. Show by rating\n9. Exit\nEnter number: ";
@@ -52,9 +52,16 @@ void Menu::add_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool 
 		shows_pool += show;
 		break;
 	}
+
 	case 2: {
 		Movie movie = add_movie();
 		movies_pool += movie;
+		break;
+	}
+
+	case 3: {
+		Live_Event live_event = add_live_event();
+		events_pool += live_event;
 		break;
 	}
 	}
@@ -110,6 +117,31 @@ Movie Menu::add_movie() {
 }
 
 
+Live_Event Menu::add_live_event() {
+	Live_Event live_event;
+	string title;
+	int length, begin_hour, begin_minute;
+
+	system("CLS");
+	cout << "What is the title of the live event?: ";
+	cin.ignore();
+	getline(cin, title);
+	cout << "How long is the live event?: ";
+	cin >> length;
+	cout << "On what hour will the show begin?: ";
+	cin >> begin_hour;
+	cout << "On what minute will the show begin?: ";
+	cin >> begin_minute;
+
+	live_event.set_title(title);
+	live_event.set_length(length);
+	live_event.set_begin_hour(begin_hour);
+	live_event.set_begin_minute(begin_minute);
+
+	return live_event;
+}
+
+
 //EDITING SECTION
 
 
@@ -126,6 +158,10 @@ void Menu::edit_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 
 	case 2:
 		edit_movie(movies_pool);
+		break;
+
+	case 3:
+		edit_live_event(events_pool);
 		break;
 	}
 }
@@ -144,7 +180,7 @@ void Menu::edit_show(Pool <TV_show>& shows_pool) {
 	TV_show& show = shows_pool.pool[choose];
 	system("CLS");
 	cout << "What do you wanna do?\n1. Change current episode \n2. Edit title \n3. Edit rating \n" <<
-		"4. Edit length \n5. Edit number of episodes \n6. Exit \nEnter number: ";
+		"4. Edit length \n5. Edit number of episodes \n9. Exit \nEnter number: ";
 	cin >> choose;
 	system("CLS");
 
@@ -245,32 +281,66 @@ void Menu::edit_movie(Pool <Movie>& movies_pool) {
 }
 
 
-//SORTING SECTION
-
-
-void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
+void Menu::edit_live_event(Pool <Live_Event>& events_pool) {
 	int choose;
 	system("CLS");
-	cout << "What do you want to sort by rating?\n1. TV shows\n2. Movies\n9. Exit\nEnter number: ";
+	cout << "Which live event do you want to edit?\n";
+	for (int i = 0; i < events_pool.pool.size(); i++) {
+		cout << i << ". " << events_pool.pool[i].get_title() << endl;
+	}
+	cout << "Enter numer: ";
 	cin >> choose;
 
+	Live_Event& live_event = events_pool.pool[choose];
+	system("CLS");
+	cout << "What do you wanna do?\n1. Mark live event as watched \n2. Edit title \n3. Edit length \n" <<
+		"4. Edit begin hour\n5. Edit begin minute\n9. Exit \nEnter number: ";
+	cin >> choose;
+	system("CLS");
+
 	switch (choose) {
-	case 1: {
-		vector <TV_show> shows_pool_vector_cp = shows_pool.pool;
-		sort(shows_pool_vector_cp.begin(), shows_pool_vector_cp.end());
-		for (int i = 0; i < shows_pool_vector_cp.size(); i++) {
-			cout << i + 1 << ". " << shows_pool_vector_cp[i].get_title() << " ocena " << shows_pool_vector_cp[i].get_rating() << endl;
+	case 1:
+		int viewed;
+		cout << "Did you watch the movie (1 for yes, 0 for no)?: ";
+		cin >> viewed;
+		if (viewed == 1) {
+			live_event.set_was_watched(true);
 		}
-	}
+		else {
+			live_event.set_was_watched(false);
+		}
+		break;
+
 	case 2: {
-		vector <Movie> movies_pool_vector_cp = movies_pool.pool;
-		sort(movies_pool_vector_cp.begin(), movies_pool_vector_cp.end());
-		for (int i = 0; i < movies_pool_vector_cp.size(); i++) {
-			cout << i + 1 << ". " << movies_pool_vector_cp[i].get_title() << " ocena " << movies_pool_vector_cp[i].get_rating() << endl;
-		}
+		string title;
+		cout << "What is the title of the live_event?: ";
+		cin.ignore();
+		getline(cin, title);
+		live_event.set_title(title);
+		break;
 	}
+
+	case 3:
+		int length;
+		cout << "How long is the movie?: ";
+		cin >> length;
+		live_event.set_length(length);
+		break;
+
+	case 4:
+		int begin_hour;
+		cout << "On what hour will the show begin?: ";
+		cin >> begin_hour;
+		live_event.set_begin_hour(begin_hour);
+		break;
+
+	case 5:
+		int begin_minute;
+		cout << "On what minute will the show begin?: ";
+		cin >> begin_minute;
+		live_event.set_begin_minute(begin_minute);
+		break;
 	}
-	system("pause");
 }
 
 
@@ -338,4 +408,34 @@ void Menu::delete_live_event(Pool <Live_Event>& events_pool) {
 	cin >> choose;
 
 	events_pool.pool.erase(events_pool.pool.begin() + choose);
+}
+
+
+//SORTING SECTION
+
+
+void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
+	int choose;
+	system("CLS");
+	cout << "What do you want to sort by rating?\n1. TV shows\n2. Movies\n9. Exit\nEnter number: ";
+	cin >> choose;
+
+	switch (choose) {
+	case 1: {
+		vector <TV_show> shows_pool_vector_cp = shows_pool.pool;
+		sort(shows_pool_vector_cp.begin(), shows_pool_vector_cp.end());
+		for (int i = 0; i < shows_pool_vector_cp.size(); i++) {
+			cout << i + 1 << ". " << shows_pool_vector_cp[i].get_title() << " ocena " << shows_pool_vector_cp[i].get_rating() << endl;
+		}
+		system("pause");
+	}
+	case 2: {
+		vector <Movie> movies_pool_vector_cp = movies_pool.pool;
+		sort(movies_pool_vector_cp.begin(), movies_pool_vector_cp.end());
+		for (int i = 0; i < movies_pool_vector_cp.size(); i++) {
+			cout << i + 1 << ". " << movies_pool_vector_cp[i].get_title() << " ocena " << movies_pool_vector_cp[i].get_rating() << endl;
+		}
+		system("pause");
+	}
+	}	
 }

@@ -3,7 +3,6 @@
 #include <iostream>
 #include <algorithm>
 #include "Live_Event.h"
-#include "Pool.h"
 #include "TV_show.h"
 #include "Movie.h"
 
