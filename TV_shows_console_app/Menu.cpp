@@ -436,6 +436,7 @@ void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 			cout << i + 1 << ". " << shows_pool_vector_cp[i].get_title() << " ocena " << shows_pool_vector_cp[i].get_rating() << endl;
 		}
 		system("pause");
+		break;
 	}
 	case 2: {
 		vector <Movie> movies_pool_vector_cp = movies_pool.pool;
@@ -444,6 +445,7 @@ void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 			cout << i + 1 << ". " << movies_pool_vector_cp[i].get_title() << " ocena " << movies_pool_vector_cp[i].get_rating() << endl;
 		}
 		system("pause");
+		break;
 	}
 	}	
 }
