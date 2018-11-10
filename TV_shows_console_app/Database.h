@@ -9,8 +9,8 @@
 
 class Database {
 public:
-	void save_tv_shows(Pool <TV_show>&);
-	void save_movies(Pool <Movie>&);
-	void save_live_events(Pool <Live_Event>&);
-	void load();
+	static void save_tv_shows(Pool <TV_show>&);
+	static void save_movies(Pool <Movie>&);
+	static void save_live_events(Pool <Live_Event>&);
+	static void load();
 };

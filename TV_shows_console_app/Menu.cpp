@@ -33,6 +33,10 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 	case 9:
 		exit(0);
 	}
+
+	Database::save_tv_shows(shows_pool);
+	Database::save_movies(movies_pool);
+	Database::save_live_events(events_pool);
 	main_menu(shows_pool, movies_pool, events_pool);
 }
 
@@ -89,6 +93,8 @@ TV_show Menu::add_show() {
 	show.set_length(length);
 	show.set_number_of_episodes(number_of_episodes);
 	show.set_rating(rating);
+	show.set_current_episode(0);
+	show.set_was_watched(false);
 
 	return show;
 }
@@ -112,6 +118,7 @@ Movie Menu::add_movie() {
 	movie.set_title(title);
 	movie.set_length(length);
 	movie.set_rating(rating);
+	movie.set_was_watched(false);
 
 	return movie;
 }
@@ -137,6 +144,7 @@ Live_Event Menu::add_live_event() {
 	live_event.set_length(length);
 	live_event.set_begin_hour(begin_hour);
 	live_event.set_begin_minute(begin_minute);
+	live_event.set_was_watched(false);
 
 	return live_event;
 }
