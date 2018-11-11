@@ -118,18 +118,16 @@
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Pool.cpp" />
     <ClCompile Include="TV_show.cpp" />
-    <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BadValueException.h" />
     <ClInclude Include="Database.h" />
     <ClInclude Include="Live_Event.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Movie.h" />
     <ClInclude Include="TV_show.h" />
     <ClInclude Include="Pool.h" />
-    <ClInclude Include="User.h" />
     <ClInclude Include="Watchable_Element.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

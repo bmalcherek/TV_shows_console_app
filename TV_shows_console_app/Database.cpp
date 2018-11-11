@@ -76,10 +76,6 @@ void Database::save_live_events(Pool <Live_Event>& events_pool) {
 		tmp = title + ";" + to_string(length) + ";" + to_string(begin_hour) + ";" +
 			to_string(begin_minute) + ";" + to_string(was_watched);
 
-		system("CLS");
-		cout << tmp;
-		system("pause");
-
 		if (i + 1 != events_pool.pool.size()) {
 			tmp += "\n";
 		}

@@ -6,6 +6,7 @@
 #include "TV_show.h"
 #include "Movie.h"
 #include "Database.h"
+#include "BadValueException.h"
 
 
 class Menu {

@@ -10,6 +10,7 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 		"6. Show statistics\n9. Exit\nEnter number: ";
 	cin >> choose;
 	system("CLS");
+
 	switch (choose) {
 
 	case 1: {
@@ -46,10 +47,6 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 		exit(0);
 	}
 
-	if (!events_pool.pool.empty()) {
-		cout << "xd";
-		system("pause");
-	}
 	Database::save_tv_shows(shows_pool);
 	Database::save_movies(movies_pool);
 	Database::save_live_events(events_pool);
@@ -74,8 +71,15 @@ void Menu::add_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool 
 	}
 
 	case 2: {
-		Movie movie = add_movie();
-		movies_pool += movie;
+		try {
+			Movie movie = add_movie();
+			movies_pool += movie;
+		}
+		catch (BadValueException& ex) {
+			system("CLS");
+			cout << ex.get_message() << endl;
+			system("pause");
+		}
 		break;
 	}
 
@@ -130,6 +134,10 @@ Movie Menu::add_movie() {
 	cin >> length;
 	cout << "What is the rating of the movie (from IMDb)?: ";
 	cin >> rating;
+
+	if (length <= 0) {
+		throw BadValueException("Length cannot be less than 0!");
+	}
 
 	movie.set_title(title);
 	movie.set_length(length);

@@ -1,0 +1,2 @@
+Przechowywanie danych o serialach filmach i wydarzeniach na żywo jest przechowywane u mnie niestety w 3 osobnych pulach. W momencie w którym się dowiedziałem o tym, że poprawnie jest mieć to wszystko w jednej puli miałem napisaną już większą część aplikacji, której z powodu mojej miłości do tego języka nie chciałem już zmieniać.
+Aplikacja nie jest w żadnym stopniu odporna na "input" użytkownika, ale nie było nic o tym wspomniane w wymaganiach projektu. Jedyny wyjątek rzucany jest w 138 linii Menu.cpp, a łapany w 78 tego samego pliku.

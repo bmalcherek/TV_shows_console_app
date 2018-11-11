@@ -1,4 +1,3 @@
-#include "User.h"
 #include "Menu.h"
 #include "Live_Event.h"
 #include "Pool.h"
