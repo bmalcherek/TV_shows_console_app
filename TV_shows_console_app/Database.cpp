@@ -75,6 +75,11 @@ void Database::save_live_events(Pool <Live_Event>& events_pool) {
 
 		tmp = title + ";" + to_string(length) + ";" + to_string(begin_hour) + ";" +
 			to_string(begin_minute) + ";" + to_string(was_watched);
+
+		system("CLS");
+		cout << tmp;
+		system("pause");
+
 		if (i + 1 != events_pool.pool.size()) {
 			tmp += "\n";
 		}
@@ -86,27 +91,29 @@ void Database::save_live_events(Pool <Live_Event>& events_pool) {
 
 void Database::load(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool <Live_Event>& events_pool) {
 	fstream spool, mpool, epool;
-	string title, var1, var2, var3, var4, var5;
+	//string title, var1, var2, var3, var4, var5;
+	string title, tmp;
 	spool.open("./shows_pool.txt");
 	mpool.open("./movies_pool.txt");
 	epool.open("./events_pool.txt");
 
 	while (spool.good()) {
-		cout << "xd1" << endl;
-		getline(spool, title, ';');
-		getline(spool, var1, ';');
-		getline(spool, var2, ';');
-		getline(spool, var3, ';');
-		getline(spool, var4, ';');
-		getline(spool, var5, '\n');
 
 		TV_show show;
+
+		getline(spool, title, ';');
 		show.set_title(title);
-		show.set_length(stoi(var1));
-		show.set_number_of_episodes(stoi(var2));
-		show.set_current_episode(stoi(var3));
-		show.set_rating(stof(var4));
-		if (var5 == "0") {
+		getline(spool, tmp, ';');
+		show.set_length(stoi(tmp));
+		getline(spool, tmp, ';');
+		show.set_number_of_episodes(stoi(tmp));
+		getline(spool, tmp, ';');
+		show.set_current_episode(stoi(tmp));
+		getline(spool, tmp, ';');
+		show.set_rating(stof(tmp));
+		getline(spool, tmp, '\n');
+			
+		if (tmp == "0") {
 			show.set_was_watched(false);
 		}
 		else {
@@ -116,19 +123,19 @@ void Database::load(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool 
 		shows_pool += show;
 	}
 
+	cout << "Shows loaded" << endl;
+
 	while (mpool.good()) {
 
-		getline(mpool, title, ';');
-		getline(mpool, var1, ';');
-		getline(mpool, var2, ';');
-		getline(mpool, var3, '\n');
-
-		cout << title + var1 + var2 + var3 + "\n";
 		Movie movie;
+		getline(mpool, title, ';');
 		movie.set_title(title);
-		movie.set_length(stoi(var1));
-		movie.set_rating(stof(var2));
-		if (var3 == "0") {
+		getline(mpool, tmp, ';');
+		movie.set_length(stoi(tmp));
+		getline(mpool, tmp, ';');
+		movie.set_rating(stof(tmp));
+		getline(mpool, tmp, '\n');
+		if (tmp == "0") {
 			movie.set_was_watched(false);
 		}
 		else {
@@ -138,20 +145,21 @@ void Database::load(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool 
 		movies_pool += movie;
 	}
 
+	cout << "Movies loaded" << endl;
+	
 	while (epool.good()) {
-		cout << "xd3" << endl;
-		getline(epool, title, ';');
-		getline(epool, var1, ';');
-		getline(epool, var2, ';');
-		getline(epool, var3, ';');
-		getline(epool, var4, '\n');
 
 		Live_Event live_event;
+		getline(epool, title, ';');
 		live_event.set_title(title);
-		live_event.set_length(stoi(var1));
-		live_event.set_begin_hour(stoi(var2));
-		live_event.set_begin_minute(stoi(var3));
-		if (var4 == "0") {
+		getline(epool, tmp, ';');
+		live_event.set_length(stoi(tmp));
+		getline(epool, tmp, ';');
+		live_event.set_begin_hour(stoi(tmp));
+		getline(epool, tmp, ';');
+		live_event.set_begin_minute(stoi(tmp));
+		getline(epool, tmp, '\n');
+		if (tmp == "0") {
 			live_event.set_was_watched(false);
 		}
 		else {
@@ -160,6 +168,8 @@ void Database::load(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool 
 
 		events_pool += live_event;
 	}
+
+	cout << "Events loaded" << endl;
 
 	spool.close();
 	mpool.close();

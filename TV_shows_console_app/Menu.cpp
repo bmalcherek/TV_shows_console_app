@@ -6,7 +6,7 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 	int choose;
 	system("CLS");
 	cout << "Hi, what would you like to do?\n1. Add show/movie/live show\n" <<
-		"2. Edit show/movie/live show\n3. Delete show/movie/live show\n4. Show by rating\n9. Exit\nEnter number: ";
+		"2. Edit show/movie/live show\n3. Delete show/movie/live show\n4. Show by rating\n5. Recommend show or movie\n9. Exit\nEnter number: ";
 	cin >> choose;
 	system("CLS");
 	switch (choose) {
@@ -30,10 +30,20 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 		sort_menu(shows_pool, movies_pool);
 		break;
 	}
+
+	case 5: {
+		recommend(shows_pool, movies_pool);
+		break;
+	}
+
 	case 9:
 		exit(0);
 	}
 
+	if (!events_pool.pool.empty()) {
+		cout << "xd";
+		system("pause");
+	}
 	Database::save_tv_shows(shows_pool);
 	Database::save_movies(movies_pool);
 	Database::save_live_events(events_pool);
@@ -197,6 +207,10 @@ void Menu::edit_show(Pool <TV_show>& shows_pool) {
 		int viewed;
 		cout << "How many episodes did you watch?: ";
 		cin >> viewed;
+		if (show.check_if_all_ep_watched(viewed)) {
+			cout << "you have watched all episodes of this show";
+			system("pause");
+		}
 		show.set_current_episode(show.get_current_episode() + viewed);
 		break;
 
@@ -430,6 +444,7 @@ void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 
 	switch (choose) {
 	case 1: {
+		system("CLS");
 		vector <TV_show> shows_pool_vector_cp = shows_pool.pool;
 		sort(shows_pool_vector_cp.begin(), shows_pool_vector_cp.end());
 		for (int i = 0; i < shows_pool_vector_cp.size(); i++) {
@@ -439,6 +454,7 @@ void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 		break;
 	}
 	case 2: {
+		system("CLS");
 		vector <Movie> movies_pool_vector_cp = movies_pool.pool;
 		sort(movies_pool_vector_cp.begin(), movies_pool_vector_cp.end());
 		for (int i = 0; i < movies_pool_vector_cp.size(); i++) {
@@ -448,4 +464,49 @@ void Menu::sort_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 		break;
 	}
 	}	
+}
+
+
+//RECOMMENDING SECTION
+
+
+void Menu::recommend(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
+	//Aplication recommend best rated not watched show and movie in database
+	system("CLS");
+	vector <TV_show> shows_pool_vector_cp = shows_pool.pool;
+	vector <Movie> movies_pool_vector_cp = movies_pool.pool;
+
+	for (int i = 0; i < shows_pool_vector_cp.size(); i++) {
+		bool viewed = shows_pool_vector_cp[i].get_was_watched();
+		if ( viewed == true) {
+			shows_pool_vector_cp.erase(shows_pool_vector_cp.begin() + i);
+		}
+	}
+
+	for (int i = 0; i < movies_pool_vector_cp.size(); i++) {
+		bool viewed = movies_pool_vector_cp[i].get_was_watched();
+		if (viewed == true) {
+			movies_pool_vector_cp.erase(movies_pool_vector_cp.begin() + i);
+		}
+	}
+
+	cout << "Recommended TV show is:\n\n";
+	sort(shows_pool_vector_cp.begin(), shows_pool_vector_cp.end());	
+	if (shows_pool_vector_cp.empty()) {
+		cout << "\tPlease add shows to database.\n\n";
+	}
+	else {
+		cout <<"\t" + shows_pool_vector_cp[0].get_title() + "\n\n";
+	}
+
+	cout << "Recommended Movie is:\n\n";
+	sort(movies_pool_vector_cp.begin(), movies_pool_vector_cp.end());
+	if (movies_pool_vector_cp.empty()) {
+		cout << "\tPlease add movies to database.\n";
+	}
+	else {
+		cout << "\t" + movies_pool_vector_cp[0].get_title() << endl;
+	}
+
+	system("pause");
 }

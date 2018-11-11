@@ -12,6 +12,10 @@ int main() {
 	Pool <Movie> movies_pool;
 	Pool <Live_Event> live_events_pool;
 	Database::load(shows_pool, movies_pool, live_events_pool);
+	if (!live_events_pool.pool.empty()) {
+		cout << "xd";
+		system("pause");
+	}
 	Menu menu;
 	menu.main_menu(shows_pool, movies_pool, live_events_pool);	
 	system("pause");
