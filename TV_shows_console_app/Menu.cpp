@@ -6,7 +6,8 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 	int choose;
 	system("CLS");
 	cout << "Hi, what would you like to do?\n1. Add show/movie/live show\n" <<
-		"2. Edit show/movie/live show\n3. Delete show/movie/live show\n4. Show by rating\n5. Recommend show or movie\n9. Exit\nEnter number: ";
+		"2. Edit show/movie/live show\n3. Delete show/movie/live show\n4. Show by rating\n5. Recommend show or movie\n"<<
+		"6. Show statistics\n9. Exit\nEnter number: ";
 	cin >> choose;
 	system("CLS");
 	switch (choose) {
@@ -33,6 +34,11 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 
 	case 5: {
 		recommend(shows_pool, movies_pool);
+		break;
+	}
+
+	case 6: {
+		statistics(shows_pool, movies_pool, events_pool);
 		break;
 	}
 
@@ -508,5 +514,42 @@ void Menu::recommend(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool) {
 		cout << "\t" + movies_pool_vector_cp[0].get_title() << endl;
 	}
 
+	system("pause");
+}
+
+
+//STATISTICS SECTION
+
+
+void Menu::statistics(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool <Live_Event>& events_pool) {
+	int shows_sum = 0, shows_ep_sum = 0, shows_watchtime_sum = 0;
+	int movies_sum = 0, movies_watchtime_sum = 0;
+	int live_events_sum = 0;
+
+	for (int i = 0; i < shows_pool.pool.size(); i++) {
+		if (shows_pool.pool[i].get_was_watched()) {
+			shows_sum++;
+		}
+		shows_ep_sum += shows_pool.pool[i].get_current_episode();
+		shows_watchtime_sum += shows_pool.pool[i].get_current_episode() * shows_pool.pool[i].get_length();
+	}
+
+	for (int i = 0; i < movies_pool.pool.size(); i++) {
+		if (movies_pool.pool[i].get_was_watched()) {
+			movies_sum++;
+			movies_watchtime_sum += movies_pool.pool[i].get_length();
+		}
+	}
+
+	for (int i = 0; i < events_pool.pool.size(); i++) {
+		if (movies_pool.pool[i].get_was_watched()) {
+			live_events_sum++;
+		}
+	}
+
+	system("CLS");
+	cout << "STATISTICS\n\nTV SHOWS\n\n TV shows watched: " << shows_sum << "\n Episodes watched: " << shows_ep_sum <<
+		"\n Watchtime: " << shows_watchtime_sum << "\n\nMOVIES\n\n Movies watched: " << movies_sum << "\n Watchtime: " <<
+		movies_watchtime_sum << "\n\nLIVE EVENTS\n\n Live events watched: " << live_events_sum << "\n\n";
 	system("pause");
 }
