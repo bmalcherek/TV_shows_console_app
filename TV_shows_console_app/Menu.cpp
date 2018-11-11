@@ -7,7 +7,7 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 	system("CLS");
 	cout << "Hi, what would you like to do?\n1. Add show/movie/live show\n" <<
 		"2. Edit show/movie/live show\n3. Delete show/movie/live show\n4. Show by rating\n5. Recommend show or movie\n"<<
-		"6. Show statistics\n9. Exit\nEnter number: ";
+		"6. Show statistics\n7. Live events\n9. Exit\nEnter number: ";
 	cin >> choose;
 	system("CLS");
 
@@ -40,6 +40,11 @@ void Menu::main_menu(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Pool
 
 	case 6: {
 		statistics(shows_pool, movies_pool, events_pool);
+		break;
+	}
+
+	case 7: {
+		live_events(events_pool);
 		break;
 	}
 
@@ -559,5 +564,20 @@ void Menu::statistics(Pool <TV_show>& shows_pool, Pool <Movie>& movies_pool, Poo
 	cout << "STATISTICS\n\nTV SHOWS\n\n TV shows watched: " << shows_sum << "\n Episodes watched: " << shows_ep_sum <<
 		"\n Watchtime: " << shows_watchtime_sum << "\n\nMOVIES\n\n Movies watched: " << movies_sum << "\n Watchtime: " <<
 		movies_watchtime_sum << "\n\nLIVE EVENTS\n\n Live events watched: " << live_events_sum << "\n\n";
+	system("pause");
+}
+
+
+//LIVE EVENTS
+
+
+void Menu::live_events(Pool <Live_Event>& events_pool) {
+	system("CLS");
+	for (int i = 0; i < events_pool.pool.size(); i++) {
+		if (!events_pool.pool[i].get_was_watched()) {
+			cout << events_pool.pool[i].get_title() <<" begins at " << events_pool.pool[i].get_begin_hour() <<
+				":" << events_pool.pool[i].get_begin_minute() << endl;
+		}
+	}
 	system("pause");
 }

@@ -1,1 +1,2 @@
-Jaka to melodia;18;40;0;1
+Jaka to melodia;40;18;40;1
+Familiada;40;15;0;0

@@ -27,6 +27,7 @@ public:
 	void delete_live_event(Pool <Live_Event>&);
 	void recommend(Pool <TV_show>&, Pool <Movie>&);
 	void statistics(Pool <TV_show>&, Pool <Movie>&, Pool <Live_Event>&);
+	void live_events(Pool <Live_Event>&);
 	TV_show add_show();
 	Movie add_movie();
 	Live_Event add_live_event();
